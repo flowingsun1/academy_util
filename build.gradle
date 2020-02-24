@@ -1,0 +1,53 @@
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url 'http://repo.spring.io/plugins-release' }
+        maven { url 'http://172.16.1.168:8081/artifactory/repo' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
+    }
+}
+apply plugin: 'java'
+sourceCompatibility=1.8
+targetCompatibility=1.8
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    maven { url 'http://repo.spring.io/plugins-release' }
+    maven { url 'http://172.16.1.168:8081/artifactory/repo' }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile("org.apache.hadoop:hadoop-common:2.7.3"){
+        exclude module: "*"
+    }
+    compile("org.apache.hadoop:hadoop-auth:2.7.3"){
+        exclude module: "*"
+    }
+    compile("org.apache.hadoop:hadoop-annotations:2.7.3"){
+        exclude module: "*"
+    }
+    compile('org.springframework.boot:spring-boot-starter')
+
+    compile('org.springframework.data:spring-data-hadoop-hbase:2.5.0.RELEASE'){
+        exclude module: "*"
+    }
+    compile('org.springframework.data:spring-data-hadoop-core:2.5.0.RELEASE'){
+        exclude module: "*"
+    }
+}
